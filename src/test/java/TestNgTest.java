@@ -10,6 +10,11 @@ public class TestNgTest {
     public void testEasy() {
         driver.get("http://demo.guru99.com/selenium/guru99home/");
         String title = driver.getTitle();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Assert.assertTrue(title.contains("Demo Guru99 Page"));
     }
     @BeforeTest
