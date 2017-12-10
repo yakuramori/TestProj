@@ -1,8 +1,6 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class TestNgTest {
     private WebDriver driver;
@@ -28,12 +26,15 @@ public class TestNgTest {
         }
         Assert.assertTrue(title.equalsIgnoreCase("Demo Guru99"));
     }
-    @BeforeTest
-    public void beforeTest() {
-        driver = new Driver("chrome").getWebDriver();
-    }
-    @AfterTest
-    public void afterTest() {
+
+    @AfterClass
+    public void tearDown() throws Exception {
         driver.quit();
+    }
+
+    @BeforeClass
+    @Parameters({"browser"})
+    public void setUp(String browser) throws Exception {
+        driver = new Driver(browser).getWebDriver();
     }
 }

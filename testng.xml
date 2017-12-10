@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite_Main" allow-return-values="true" verbose="1" parallel="tests" thread-count="3">
+
+    <parameter name="fileName" value="EnglishVersion"/>
+
+    <test name="runTestScenarioA">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="propertyFinder.url" value="https://www.propertyfinder.qa/"/>
+        <classes>
+            <class name="TestNgTest">
+                <methods>
+                    <include name="testTitle" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="runTestScenarioB">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="propertyFinder.url" value="https://www.propertyfinder.ae/"/>
+        <classes>
+            <class name="TestNgTest">
+                <methods>
+                    <include name="testTitle" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="runTestScenarioC">
+        <parameter name="browser" value="ghost"/>
+        <parameter name="propertyFinder.url" value="https://www.propertyfinder.ae/"/>
+        <classes>
+            <class name="TestNgTest">
+                <methods>
+                    <include name="testTitle" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
