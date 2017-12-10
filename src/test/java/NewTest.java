@@ -1,8 +1,9 @@
+import org.junit.After;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.junit.Before;
+
 
 public class NewTest {
     private WebDriver driver;
@@ -12,11 +13,11 @@ public class NewTest {
         String title = driver.getTitle();
         Assert.assertTrue(title.contains("Demo Guru99 Page"));
     }
-    @BeforeTest
+    @Before
     public void beforeTest() {
         driver = new Driver("firefox").getWebDriver();
     }
-    @AfterTest
+    @After
     public void afterTest() {
         driver.quit();
     }
