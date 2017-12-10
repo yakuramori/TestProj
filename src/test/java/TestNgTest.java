@@ -17,6 +17,17 @@ public class TestNgTest {
         }
         Assert.assertTrue(title.contains("Demo Guru99 Page"));
     }
+    @Test
+    public void testTitle2() {
+        driver.get("http://demo.guru99.com/selenium/guru99home/");
+        String title = driver.getTitle();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(title.equalsIgnoreCase("Demo Guru99"));
+    }
     @BeforeTest
     public void beforeTest() {
         driver = new Driver("chrome").getWebDriver();
