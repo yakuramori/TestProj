@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 
-public class NewTest {
+public class TestJunitTest {
     private WebDriver driver;
     @Test
     public void testEasy() {
