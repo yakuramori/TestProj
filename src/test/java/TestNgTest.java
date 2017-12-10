@@ -1,11 +1,16 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 public class TestNgTest {
     private WebDriver driver;
+
     @Test
-    public void testTitle() {
+    @Parameters({"browser"})
+    public void testTitle(String browser) throws Exception {
         driver.get("http://demo.guru99.com/selenium/guru99home/");
         String title = driver.getTitle();
         try {
@@ -13,7 +18,8 @@ public class TestNgTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Page Title is: "+driver.getTitle());
+        System.out.println("Browser is: " + browser);
+        System.out.println("Page Title is: " + driver.getTitle());
         Assert.assertTrue(title.contains("Demo Guru99 Page"));
     }
     @Test
