@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn clean verify'
+                bat 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {

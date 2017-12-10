@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestNgTest {
     private WebDriver driver;
     @Test
-    public void testEasy() {
+    public void testTitle() {
         driver.get("http://demo.guru99.com/selenium/guru99home/");
         String title = driver.getTitle();
         try {
