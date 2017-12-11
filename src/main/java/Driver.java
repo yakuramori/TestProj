@@ -4,9 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
@@ -34,7 +36,8 @@ public class Driver {
             profile.setPreference("browser.download.defaultFolder", "C:\\Users\\" + username + "\\Downloads");
             profile.setPreference("browser.download.folderList", 1);
             cap.setJavascriptEnabled(true);
-            webDriver = new FirefoxDriver(cap);
+            webDriver = new FirefoxDriver(new FirefoxOptions(cap));
+            webDriver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("ie")) {
             DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
             System.setProperty("webdriver.ie.driver", TestConfig.getPropertyValue("ie.driver"));
@@ -44,7 +47,7 @@ public class Driver {
             caps.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, false);
             caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
             caps.setJavascriptEnabled(true);
-            webDriver = new InternetExplorerDriver(caps);
+            webDriver = new InternetExplorerDriver(new InternetExplorerOptions(caps));
         } else if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", TestConfig.getPropertyValue("chrome.driver"));
             ChromeOptions optionsChrome = new ChromeOptions();
@@ -52,7 +55,6 @@ public class Driver {
             optionsChrome.addArguments("--start-maximized");
             optionsChrome.addArguments("test-type");
             webDriver = new ChromeDriver(optionsChrome);
-            //webDriver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("ghost")){
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
@@ -60,8 +62,7 @@ public class Driver {
             caps.setCapability("takesScreenshot", true);
             caps.setCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0");
             webDriver = new PhantomJSDriver(caps);
-            //webDriver.manage().window().maximize();
-            webDriver.manage().window().setSize(new Dimension(1920, 1920));
+            webDriver.manage().window().setSize(new Dimension(1920, 1080));
         } else {
             throw new IllegalArgumentException("SetUp has FAILED.");
         }
