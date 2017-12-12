@@ -29,6 +29,7 @@ public class Driver {
             //String username = System.getProperty("user.name");
             System.setProperty("webdriver.gecko.driver", TestConfig.getPropertyValue("firefox.driver"));
             DesiredCapabilities cap = DesiredCapabilities.firefox();
+            cap.setCapability("security.sandbox.content.level", "4");
             FirefoxProfile profile = new FirefoxProfile();
             profile.setAcceptUntrustedCertificates(true);
             profile.setPreference("webdriver.firefox.marionette", true);
