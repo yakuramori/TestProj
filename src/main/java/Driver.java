@@ -28,15 +28,16 @@ public class Driver {
         if (browser.equalsIgnoreCase("firefox")) {
             //String username = System.getProperty("user.name");
             System.setProperty("webdriver.gecko.driver", TestConfig.getPropertyValue("firefox.driver"));
-            DesiredCapabilities cap = DesiredCapabilities.firefox();
-            cap.setCapability("security.sandbox.content.level", "4");
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            //firefoxOptions.addArguments("security.sandbox.content.level", "4");
+            firefoxOptions.addPreference("security.sandbox.content.level", "4");
+            firefoxOptions.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
             FirefoxProfile profile = new FirefoxProfile();
             profile.setAcceptUntrustedCertificates(true);
-            profile.setPreference("webdriver.firefox.marionette", true);
             //profile.setPreference("browser.download.defaultFolder", "C:\\Users\\" + username + "\\Downloads");
             //profile.setPreference("browser.download.folderList", 1);
-            cap.setJavascriptEnabled(true);
-            webDriver = new FirefoxDriver(new FirefoxOptions(cap));
+            firefoxOptions.setProfile(profile);
+            webDriver = new FirefoxDriver(firefoxOptions);
             webDriver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("ie")) {
             DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
