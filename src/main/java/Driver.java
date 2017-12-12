@@ -26,13 +26,14 @@ public class Driver {
 
     public WebDriver getWebDriver() {
         if (browser.equalsIgnoreCase("firefox")) {
-            String username = System.getProperty("user.name");
+            //String username = System.getProperty("user.name");
             System.setProperty("webdriver.gecko.driver", TestConfig.getPropertyValue("firefox.driver"));
             DesiredCapabilities cap = DesiredCapabilities.firefox();
             FirefoxProfile profile = new FirefoxProfile();
             profile.setAcceptUntrustedCertificates(true);
-            profile.setPreference("browser.download.defaultFolder", "C:\\Users\\" + username + "\\Downloads");
-            profile.setPreference("browser.download.folderList", 1);
+            profile.setPreference("webdriver.firefox.marionette", true);
+            //profile.setPreference("browser.download.defaultFolder", "C:\\Users\\" + username + "\\Downloads");
+            //profile.setPreference("browser.download.folderList", 1);
             cap.setJavascriptEnabled(true);
             webDriver = new FirefoxDriver(new FirefoxOptions(cap));
             webDriver.manage().window().maximize();
@@ -61,7 +62,9 @@ public class Driver {
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
                     TestConfig.getPropertyValue("ghost.driver"));
             caps.setCapability("takesScreenshot", true);
-            caps.setCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0");
+            caps.setJavascriptEnabled(true);
+            caps.setCapability("unhandledPromptBehavior", "accept");
+            caps.setCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/52.0");
             webDriver = new PhantomJSDriver(caps);
             webDriver.manage().window().setSize(new Dimension(1920, 1080));
         } else {
