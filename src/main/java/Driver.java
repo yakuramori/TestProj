@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -30,8 +29,7 @@ public class Driver {
             String username = System.getProperty("user.name");
             System.setProperty("webdriver.gecko.driver", TestConfig.getPropertyValue("firefox.driver"));
             DesiredCapabilities cap = DesiredCapabilities.firefox();
-            ProfilesIni allProfiles = new ProfilesIni();
-            FirefoxProfile profile = allProfiles.getProfile("default");
+            FirefoxProfile profile = new FirefoxProfile();
             profile.setAcceptUntrustedCertificates(true);
             profile.setPreference("browser.download.defaultFolder", "C:\\Users\\" + username + "\\Downloads");
             profile.setPreference("browser.download.folderList", 1);
@@ -45,7 +43,10 @@ public class Driver {
             caps.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, UnexpectedAlertBehaviour.ACCEPT);
             caps.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, false);
             caps.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, false);
+            caps.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+            caps.setCapability(InternetExplorerDriver.BROWSER_ATTACH_TIMEOUT, 15000);
             caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+            caps.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             caps.setJavascriptEnabled(true);
             webDriver = new InternetExplorerDriver(new InternetExplorerOptions(caps));
         } else if (browser.equalsIgnoreCase("chrome")) {
