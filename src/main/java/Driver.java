@@ -76,7 +76,7 @@ public class Driver {
             throw new IllegalArgumentException("SetUp has FAILED.");
         }
         webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().pageLoadTimeout(45, TimeUnit.SECONDS);
         webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         return webDriver;
     }
