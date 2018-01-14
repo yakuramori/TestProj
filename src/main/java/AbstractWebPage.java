@@ -1,4 +1,5 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -6,7 +7,6 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 
 public abstract class AbstractWebPage {
-    protected String pageTitle;
     protected WebDriver driver;
     protected int defaultTimeout = 30;
 
@@ -18,7 +18,7 @@ public abstract class AbstractWebPage {
         return driver.getTitle();
     }
 
-    protected abstract boolean isTitleCorrect();
+    public abstract boolean isTitleCorrect();
 
     public Screenshot getWebElementScreenshot(WebElement webElement) {
         new WebDriverWait(driver, defaultTimeout).until(ExpectedConditions.visibilityOf(webElement));
@@ -67,12 +67,35 @@ public abstract class AbstractWebPage {
         }
     }
 
+    protected WebElement waitForWebElementToBeDisplayed(By locator, int time) {
+        WebElement webElement = (new WebDriverWait(driver, time))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return webElement;
+    }
+
     protected boolean isElementPresentAndDisplayed(By byLocator) {
         if (isElementPresent(byLocator)) {
-            WebElement webElement = (new WebDriverWait(driver, 1))
-                    .until(ExpectedConditions.visibilityOfElementLocated(byLocator));
+            WebElement webElement = driver.findElement(byLocator);
             return webElement.isDisplayed();
         }
         return false;
+    }
+
+    protected void findAndClickWebElementBy(By locator) throws Exception {
+        Actions action = new Actions(driver);
+        try {
+            action.moveToElement(driver.findElement(locator)).pause(100).click(driver.findElement(locator)).perform();
+        } catch (Exception e) {
+            throw new Exception("Find and click action could not be performed for element: " + locator.toString());
+        }
+    }
+
+    protected void findAndClickWebElementBy(WebElement webElement) throws Exception {
+        try {
+            new Actions(driver).moveToElement(webElement).pause(200).build().perform();
+            webElement.click();
+        } catch (Exception e) {
+            throw new Exception("Find and click action could not be performed for element: " + webElement.toString());
+        }
     }
 }
