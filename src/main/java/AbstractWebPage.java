@@ -1,4 +1,7 @@
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -58,11 +61,11 @@ public abstract class AbstractWebPage {
     }
 
     protected boolean isElementPresent(By byLocator) {
+        WebDriverWait wait = new WebDriverWait(driver, 2);
         try {
-            WebElement webElement = (new WebDriverWait(driver, 1))
-                    .until(ExpectedConditions.presenceOfElementLocated(byLocator));
+            wait.until(ExpectedConditions.presenceOfElementLocated(byLocator));
             return true;
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -84,15 +87,17 @@ public abstract class AbstractWebPage {
     protected void findAndClickWebElementBy(By locator) throws Exception {
         Actions action = new Actions(driver);
         try {
-            action.moveToElement(driver.findElement(locator)).pause(100).click(driver.findElement(locator)).perform();
+            waitForWebElementToBeDisplayed(locator, defaultTimeout);
+            action.moveToElement(driver.findElement(locator)).pause(200).click(driver.findElement(locator)).perform();
         } catch (Exception e) {
             throw new Exception("Find and click action could not be performed for element: " + locator.toString());
         }
     }
 
     protected void findAndClickWebElementBy(WebElement webElement) throws Exception {
+        Actions action = new Actions(driver);
         try {
-            new Actions(driver).moveToElement(webElement).pause(200).build().perform();
+            action.moveToElement(webElement).pause(200).build().perform();
             webElement.click();
         } catch (Exception e) {
             throw new Exception("Find and click action could not be performed for element: " + webElement.toString());
