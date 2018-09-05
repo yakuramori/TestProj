@@ -31,7 +31,7 @@ public class TestCrossBrowser {
         caps.setCapability("name", env.get("CBT_BUILD_NAME"));
         caps.setCapability("build", env.get("CBT_BUILD_NUMBER"));
         caps.setCapability("browserName", env.get("CBT_BROWSERNAME"));
-        caps.setCapability("version", env.get("CBT_VERSION"));
+        caps.setCapability("version", "68x64");
         caps.setCapability("platform", env.get("CBT_PLATFORM"));
         caps.setCapability("screenResolution", env.get("CBT_SCREENRESOLUTION"));
         caps.setCapability("record_video", "true");
