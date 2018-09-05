@@ -21,10 +21,13 @@ public class TestCrossBrowser {
     public void setup() throws MalformedURLException {
         Map<String, String> env = System.getenv();
         //env.entrySet().stream().forEach(en -> System.out.println("Param: " + en.getKey() + "::" + en.getValue()));
+
         String username = env.get("CBT_USERNAME");
         String authkey = env.get("CBT_AUTHKEY");
+        System.out.println("U: " + username + "// P:" + authkey);
         cbApi = new CrossBrowserTestingApi(username, authkey);
         DesiredCapabilities caps = new DesiredCapabilities();
+        System.out.println(env.get("CBT_BUILD_NAME") + env.get("CBT_BUILD_NUMBER") + env.get("CBT_BROWSERNAME") + env.get("CBT_VERSION") + env.get("CBT_PLATFORM") + env.get("CBT_SCREENRESOLUTION"));
         caps.setCapability("name", env.get("CBT_BUILD_NAME"));
         caps.setCapability("build", env.get("CBT_BUILD_NUMBER"));
         caps.setCapability("browserName", env.get("CBT_BROWSERNAME"));
