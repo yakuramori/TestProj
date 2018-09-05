@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 public class TestCrossBrowser {
     private WebDriver driver;
     private CrossBrowserTestingApi cbApi;
-    private String score;
 
     @BeforeTest
     public void setup() throws MalformedURLException {
