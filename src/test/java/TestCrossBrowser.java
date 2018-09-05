@@ -17,7 +17,7 @@ public class TestCrossBrowser {
     private CrossBrowserTestingApi cbApi;
     private String score;
 
-    @BeforeSuite
+    @BeforeTest
     public void setup() throws MalformedURLException {
         String username = "yury%40wondermentapps.com";
         String authkey = "u0d3594f2655822f";
@@ -36,16 +36,12 @@ public class TestCrossBrowser {
         cbApi.setSessionId(((RemoteWebDriver) driver).getSessionId().toString());
         driver = new Driver("chrome").getWebDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
-
-    @BeforeTest
-    public void openPage() {
         System.out.println("Loading Url");
         driver.get("https://www.solesociety.com/");
         System.out.println("Maximizing window");
         driver.manage().window().maximize();
         cbApi.takeSnapshot();
-    }
+    }    
 
     @Test
     public void testSignIn() throws Exception {
@@ -73,7 +69,7 @@ public class TestCrossBrowser {
         cbApi.setScore("fail");
     }
 
-    @AfterSuite
+    @AfterTest
     public void tearDown() {
         driver.quit();
     }
