@@ -1,4 +1,3 @@
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,8 +7,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -62,16 +59,6 @@ public class Driver {
             optionsChrome.addArguments("--start-maximized");
             optionsChrome.addArguments("test-type");
             webDriver = new ChromeDriver(optionsChrome);
-        } else if (browser.equalsIgnoreCase("ghost")){
-            DesiredCapabilities caps = new DesiredCapabilities();
-            caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-                    TestConfig.getPropertyValue("ghost.driver"));
-            caps.setCapability("takesScreenshot", true);
-            caps.setJavascriptEnabled(true);
-            caps.setCapability("unhandledPromptBehavior", "accept");
-            caps.setCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/52.0");
-            webDriver = new PhantomJSDriver(caps);
-            webDriver.manage().window().setSize(new Dimension(1920, 1080));
         } else {
             throw new IllegalArgumentException("SetUp has FAILED.");
         }
