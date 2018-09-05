@@ -5,8 +5,7 @@
     
     <test name="runTestScenario">        
         <classes>
-            <class name="TestCrossBrowser">                
-            </class>
+            <class name="TestCrossBrowser" />
         </classes>
     </test>
 
