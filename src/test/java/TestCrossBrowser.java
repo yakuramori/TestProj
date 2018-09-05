@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -19,20 +18,19 @@ public class TestCrossBrowser {
     private CrossBrowserTestingApi cbApi;
 
     @BeforeMethod
-    @Parameters("number")
-    public void setup(String number) throws MalformedURLException {
-        String username = "yakuramori%40gmail.com";
-        String authkey = "u70391857b26d23c";
+    public void setup() throws MalformedURLException {
         Map<String, String> env = System.getenv();
-        env.entrySet().stream().forEach(en -> System.out.println("Param: " + en.getKey() + "::" + en.getValue()));
+        //env.entrySet().stream().forEach(en -> System.out.println("Param: " + en.getKey() + "::" + en.getValue()));
+        String username = env.get("CBT_USERNAME");
+        String authkey = env.get("CBT_AUTHKEY");
         cbApi = new CrossBrowserTestingApi(username, authkey);
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("name", "Basic Test Example");
-        caps.setCapability("build", number);
-        caps.setCapability("browserName", "Chrome");
-        caps.setCapability("version", "68x64");
-        caps.setCapability("platform", "Windows 10");
-        caps.setCapability("screenResolution", "1366x768");
+        caps.setCapability("name", env.get("CBT_BUILD_NAME"));
+        caps.setCapability("build", env.get("CBT_BUILD_NUMBER"));
+        caps.setCapability("browserName", env.get("CBT_BROWSERNAME"));
+        caps.setCapability("version", env.get("CBT_VERSION"));
+        caps.setCapability("platform", env.get("CBT_PLATFORM"));
+        caps.setCapability("screenResolution", env.get("CBT_SCREENRESOLUTION"));
         caps.setCapability("record_video", "true");
         caps.setCapability("takesScreenshot", true);
 

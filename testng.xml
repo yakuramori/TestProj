@@ -2,7 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite_Main" allow-return-values="true" verbose="1">
-    <parameter name="number" value="CBT_BUILD_NUMBER"/>
     <test name="runTestScenario">        
         <classes>
             <class name="TestCrossBrowser" />
