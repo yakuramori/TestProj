@@ -3,8 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -41,7 +40,7 @@ public class TestCrossBrowser {
         System.out.println("Maximizing window");
         driver.manage().window().maximize();
         cbApi.takeSnapshot();
-    }    
+    }
 
     @Test
     public void testSignIn() throws Exception {
