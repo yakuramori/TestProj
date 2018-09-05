@@ -16,8 +16,8 @@ public class TestCrossBrowser {
 
     @BeforeTest
     public void setup() throws MalformedURLException {
-        String username = "yury%40wondermentapps.com";
-        String authkey = "u0d3594f2655822f";
+        String username = "yakuramori%40gmail.com";
+        String authkey = "u70391857b26d23c";
         cbApi = new CrossBrowserTestingApi(username, authkey);
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("name", "Basic Test Example");
