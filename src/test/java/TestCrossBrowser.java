@@ -3,7 +3,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,17 +33,15 @@ public class TestCrossBrowser {
 
         driver = new RemoteWebDriver(new URL("http://" + username + ":" + authkey + "@hub.crossbrowsertesting.com:80/wd/hub"), caps);
         cbApi.setSessionId(((RemoteWebDriver) driver).getSessionId().toString());
-        driver = new Driver("chrome").getWebDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        System.out.println("Loading Url");
-        driver.get("https://www.solesociety.com/");
         System.out.println("Maximizing window");
         driver.manage().window().maximize();
-        cbApi.takeSnapshot();
     }
 
     @Test
     public void testSignIn() throws Exception {
+        System.out.println("Loading Url");
+        driver.get("https://www.solesociety.com/");
         SoleSocietyLandingPage page = new SoleSocietyLandingPage(driver);
         page.closeBestDeal();
         cbApi.takeSnapshot();
@@ -55,6 +55,8 @@ public class TestCrossBrowser {
 
     @Test
     public void testSignInFail() throws Exception {
+        System.out.println("Loading Url");
+        driver.get("https://www.solesociety.com/");
         SoleSocietyLandingPage page = new SoleSocietyLandingPage(driver);
         page.closeBestDeal();
         cbApi.takeSnapshot();
