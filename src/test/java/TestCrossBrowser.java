@@ -28,7 +28,7 @@ public class TestCrossBrowser {
         cbApi = new CrossBrowserTestingApi(username, authkey);
         DesiredCapabilities caps = new DesiredCapabilities();
         System.out.println(env.get("CBT_BUILD_NAME") + env.get("CBT_BUILD_NUMBER") + env.get("CBT_BROWSERNAME") + env.get("CBT_VERSION") + env.get("CBT_PLATFORM") + env.get("CBT_SCREENRESOLUTION"));
-        caps.setCapability("name", env.get("CBT_BUILD_NAME"));
+        caps.setCapability("name", env.get("CBT_BUILD_NAME").trim());
         caps.setCapability("build", env.get("CBT_BUILD_NUMBER"));
         caps.setCapability("browserName", env.get("CBT_BROWSERNAME"));
         caps.setCapability("version", "68x64");
@@ -36,7 +36,9 @@ public class TestCrossBrowser {
         caps.setCapability("screenResolution", env.get("CBT_SCREENRESOLUTION"));
         caps.setCapability("record_video", "true");
         caps.setCapability("takesScreenshot", true);
-
+        if (username.contains("@")) {
+            username = username.replace("@", "%40");
+        }
         driver = new RemoteWebDriver(new URL("http://" + username + ":" + authkey + "@hub.crossbrowsertesting.com:80/wd/hub"), caps);
         String sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
         System.out.println("SessionId: " + sessionId);
