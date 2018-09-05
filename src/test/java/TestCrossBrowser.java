@@ -6,10 +6,12 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class TestCrossBrowser {
@@ -17,13 +19,16 @@ public class TestCrossBrowser {
     private CrossBrowserTestingApi cbApi;
 
     @BeforeMethod
-    public void setup() throws MalformedURLException {
+    @Parameters("number")
+    public void setup(String number) throws MalformedURLException {
         String username = "yakuramori%40gmail.com";
         String authkey = "u70391857b26d23c";
+        Map<String, String> env = System.getenv();
+        env.entrySet().stream().forEach(en -> System.out.println("Param: " + en.getKey() + "::" + en.getValue()));
         cbApi = new CrossBrowserTestingApi(username, authkey);
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("name", "Basic Test Example");
-        caps.setCapability("build", "1.2");
+        caps.setCapability("build", number);
         caps.setCapability("browserName", "Chrome");
         caps.setCapability("version", "68x64");
         caps.setCapability("platform", "Windows 10");
